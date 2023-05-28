@@ -3,28 +3,39 @@ import frameworkLogoSmall from '../images/framework-logos-small.png';
 import frameworkLogos from '../images/framework-logos.png';
 
 interface Props {
-    showCaseText: string;
+    showCaseHeading?: string;
+    showCaseText?: string;
+    showExtra?: boolean;
 }
 
-const { showCaseText } = Astro.props as Props;
+const {
+    showCaseText = `Build super fast HTML-first websites using your favorite JavaScript frameworks`,
+    showCaseHeading = 'Welcome To The Astro Crash Course!',
+    showExtra = true,
+} = Astro.props as Props;
 ---
 
 <section class='showcase'>
     <div class='showcase-text'>
-        <h1>{showCaseText}</h1>
-        <p>
-            Build super fast HTML-first websites using your favorite JavaScript
-            frameworks
-        </p>
+        <h1>{showCaseHeading}</h1>
+        <p>{showCaseText}</p>
     </div>
-    <div class='showcase-img'>
-        <img class='logos' src={frameworkLogos} alt='' />
-        <img class='logos-small' src={frameworkLogoSmall} alt='' />
-    </div>
+    {
+        showExtra && (
+            <>
+                <div class='showcase-img'>
+                    <img class='logos' src={frameworkLogos} alt='' />
+                    <img class='logos-small' src={frameworkLogoSmall} alt='' />
+                </div>
 
-    <p class='showcase-demo'>
-        <small>This is a demo website used for the YouTube crash course</small>
-    </p>
+                <p class='showcase-demo'>
+                    <small>
+                        This is a demo website used for the YouTube crash course
+                    </small>
+                </p>
+            </>
+        )
+    }
 </section>
 
 <style>

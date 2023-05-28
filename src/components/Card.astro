@@ -1,0 +1,45 @@
+---
+interface Props {
+    cardHeading: string;
+    cardContent: string;
+    showButton?: boolean;
+    dark?: boolean;
+}
+
+const {
+    cardHeading,
+    cardContent,
+    dark = false,
+    showButton = false,
+} = Astro.props as Props;
+---
+
+<div class=`card ${dark && 'dark'}`>
+    <h3>{cardHeading}</h3>
+    <p>
+        {cardContent}
+    </p>
+
+    {
+        showButton && (
+            <a href='post.html' class='btn'>
+                Read More
+            </a>
+        )
+    }
+</div>
+
+<style>
+    .card {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .dark {
+        background: var(--color-primary);
+        color: white;
+    }
+</style>

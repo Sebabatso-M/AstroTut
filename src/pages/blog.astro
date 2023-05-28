@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Showcase from '../components/Showcase.astro';
+import Card from '../components/Card.astro';
+
+const blogsData = [
+    {
+        title: 'Astro 1.0',
+        body: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quisquam voluptate, quae, quod, voluptates quibusdam
+                    voluptatibus quidem voluptatum quos quia quas nesciunt.
+                    Quisquam, quae. Quisquam, quae. Quisquam, quae. Quisquam,
+                    quae.`,
+    },
+    {
+        title: 'Astro on Netlify Edge Functions',
+        body: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quisquam voluptate, quae, quod, voluptates quibusdam
+                    voluptatibus quidem voluptatum quos quia quas nesciunt.
+                    Quisquam, quae. Quisquam, quae. Quisquam, quae. Quisquam,
+                    quae.`,
+    },
+    {
+        title: 'Astro 1.0 Release Update',
+        body: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Quisquam voluptate, quae, quod, voluptates quibusdam
+                    voluptatibus quidem voluptatum quos quia quas nesciunt.
+                    Quisquam, quae. Quisquam, quae. Quisquam, quae. Quisquam,
+                    quae.`,
+    },
+];
+---
+
+<Layout title='Blog'>
+    <Showcase
+        showCaseHeading='Astro Blog'
+        showCaseText='A simple blog built with Astro'
+        showExtra={false}
+    />
+
+    <section class='page-content'>
+        <div class='container'>
+            {
+                blogsData.map((blogData) => {
+                    return (
+                        <Card
+                            cardHeading={blogData.title}
+                            cardContent={blogData.body}
+                            showButton={true}
+                        />
+                    );
+                })
+            }
+        </div>
+    </section>
+</Layout>
