@@ -3,35 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import Showcase from '../components/Showcase.astro';
 import Card from '../components/Card.astro';
 
-const blogsData = [
-    {
-        title: 'Astro 1.0',
-        body: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quisquam voluptate, quae, quod, voluptates quibusdam
-                    voluptatibus quidem voluptatum quos quia quas nesciunt.
-                    Quisquam, quae. Quisquam, quae. Quisquam, quae. Quisquam,
-                    quae.`,
-    },
-    {
-        title: 'Astro on Netlify Edge Functions',
-        body: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quisquam voluptate, quae, quod, voluptates quibusdam
-                    voluptatibus quidem voluptatum quos quia quas nesciunt.
-                    Quisquam, quae. Quisquam, quae. Quisquam, quae. Quisquam,
-                    quae.`,
-    },
-    {
-        title: 'Astro 1.0 Release Update',
-        body: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Quisquam voluptate, quae, quod, voluptates quibusdam
-                    voluptatibus quidem voluptatum quos quia quas nesciunt.
-                    Quisquam, quae. Quisquam, quae. Quisquam, quae. Quisquam,
-                    quae.`,
-    },
-];
+const posts = await Astro.glob('../posts/*.md');
 ---
 
-<Layout title='Blog'>
+<Layout title='Astro Blog'>
     <Showcase
         showCaseHeading='Astro Blog'
         showCaseText='A simple blog built with Astro'
@@ -41,13 +16,22 @@ const blogsData = [
     <section class='page-content'>
         <div class='container'>
             {
-                blogsData.map((blogData) => {
+                posts.map((post) => {
                     return (
                         <Card
-                            cardHeading={blogData.title}
-                            cardContent={blogData.body}
+                            cardHeading={post.frontmatter.title}
+                            cardContent={post.frontmatter.excerpt}
+                            postLink={post.frontmatter.slug}
                             showButton={true}
-                        />
+                        >
+                            <p>
+                                Written by{' '}
+                                <strong>{post.frontmatter.author}</strong> on{' '}
+                                {new Date(
+                                    post.frontmatter.date
+                                ).toLocaleDateString()}
+                            </p>
+                        </Card>
                     );
                 })
             }
